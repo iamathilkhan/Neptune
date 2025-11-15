@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
-from models.ai_integration import predict_fishing, predict_disaster
 
-app = Flask(__name__, template_folder="templates", static_folder="static")
+app = Flask(__name__)
 
 @app.route("/")
 def index():
@@ -10,22 +9,14 @@ def index():
 @app.route("/predict", methods=["GET", "POST"])
 def predict():
     if request.method == "POST":
-        # Get form data
-        data = {
-            'tdrop': float(request.form.get('tdrop', 28)),
-            'tbar': float(request.form.get('tbar', 1013)),
-            'tskinice': float(request.form.get('tskinice', 25)),
-            'rainocn': float(request.form.get('rainocn', 0.3)),
-            'delts': float(request.form.get('delts', 0.5)),
-            'latitude': float(request.form.get('latitude', 15.0)),
-            'longitude': float(request.form.get('longitude', 75.0))
-        }
-        # Make predictions
-        fish_prob = predict_fishing(data)
-        dis_prob = predict_disaster(data)
-        fish_pct = fish_prob * 100
-        dis_pct = dis_prob * 100
-        return render_template("predict.html", prediction=True, fish_pct=fish_pct, dis_pct=dis_pct, **data)
+        tdrop = float(request.form.get("tdrop", 28))
+        rainocn = float(request.form.get("rainocn", 0.3))
+        tskinice = float(request.form.get("tskinice", 25))
+        
+        fishing_prob = 0.5 if tdrop >= 28 and rainocn <= 0.5 else 0.2
+        disaster_prob = 0.5 if tskinice >= 29 and rainocn >= 0.6 else 0.1
+        
+        return render_template("predict.html", fishing_prob=fishing_prob, disaster_prob=disaster_prob)
     return render_template("predict.html")
 
 @app.route("/dashboard")

@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Predict - Neptune</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Make Predictions</h1>
+    <p>Enter ocean data to predict fishing hotspots and disaster risks.</p>
+    
+    <form method="post" class="predict-form">
+      <div class="input-grid">
+        <div>
+          <label>Temperature Drop (°C)</label>
+          <input name="tdrop" type="number" step="0.1" value="28" required />
+        </div>
+        <div>
+          <label>Rainfall (mm)</label>
+          <input name="rainocn" type="number" step="0.1" value="0.3" required />
+        </div>
+        <div>
+          <label>Skin Ice Temp (°C)</label>
+          <input name="tskinice" type="number" step="0.1" value="25" required />
+        </div>
+      </div>
+      <button type="submit" class="button button-primary">Predict</button>
+    </form>
+    
+    {% if fishing_prob is defined %}
+    <div class="results">
+      <h3>Results</h3>
+      <p><strong>Fishing Probability:</strong> {{ "%.1f"|format(fishing_prob * 100) }}%</p>
+      <p><strong>Disaster Risk:</strong> {{ "%.1f"|format(disaster_prob * 100) }}%</p>
+    </div>
+    {% endif %}
+    
+    <div style="margin-top: 2rem;">
+      <a href="/">← Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
