@@ -1,78 +1,61 @@
-# Neptune
+# Neptune 🌊
 
-Neptune is a small Flask app that provides an ocean-focused chat UI and simple ML models for fishing/disaster prediction. This repo contains lightweight example models and a FAISS vectorstore built from a CSV dataset.
+Welcome to **Neptune**, an innovative Flask-based web application that brings the ocean to your fingertips! Neptune features an engaging chat interface focused on marine topics, powered by lightweight machine learning models for fishing and disaster prediction. Built with simplicity and exploration in mind, it leverages neural networks to provide intelligent insights into oceanic phenomena.
 
-Important: the project will download and/or build some models and a FAISS index on first run. That can be heavy and may require extra build steps on Windows (see notes below).
+This project was developed with a bit of help from AI tools to enhance creativity and efficiency in coding and design.
 
-## Quick start (Windows PowerShell)
+## Features
 
-1. Create and activate a virtual environment
+- **Ocean-Focused Chat UI**: Interact with a user-friendly chat interface tailored for marine discussions and queries.
+- **Machine Learning Predictions**: Utilize neural network-based models for predicting fishing opportunities and potential disasters at sea.
+- **FAISS Vectorstore**: Efficient similarity search built from ocean-related datasets for enhanced chat responses.
+- **Lightweight and Fast**: Designed for quick setup and minimal resource usage, perfect for development and exploration.
+- **Modular Architecture**: Clean separation of routes, models, and templates for easy customization and extension.
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
+## Screenshots
 
-2. Install dependencies
+*(Add screenshots here if available)*
 
-```powershell
-pip install --upgrade pip
-pip install -r requirements.txt
-```
+## Installation
 
-Note: `faiss-cpu` may not have an official wheel for your Windows/Python version. If `pip install faiss-cpu` fails, consider using conda:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/neptune.git
+   cd neptune
+   ```
 
-```powershell
-conda create -n neptune python=3.11
-conda activate neptune
-conda install -c conda-forge faiss-cpu
-pip install -r requirements.txt --no-deps
-```
+2. Create a virtual environment and activate it:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .\.venv\Scripts\Activate.ps1
+   ```
 
-3. (Optional) Skip heavy building on startup
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Set an environment variable to skip building the Keras models and FAISS index during startup. Useful for development, tests, and CI.
+4. Run the application:
+   ```bash
+   python app.py
+   ```
 
-```powershell
-$env:NEPTUNE_SKIP_BUILD = "1"
-```
+Visit `http://127.0.0.1:5000/` to explore Neptune!
 
-4. Run the app
+## Usage
 
-```powershell
-python app.py
-```
+- Navigate to the chat page to engage with the ocean-themed AI.
+- Use the dashboard for model predictions and insights.
+- Customize models or add new features by modifying the `models/` directory.
 
-Open http://127.0.0.1:5000/ in your browser and try the chat page.
+## Contributing
 
-## Tests
+We welcome contributions! Feel free to open issues or submit pull requests. This project was inspired by the wonders of the ocean and the power of AI.
 
-A very small test is included that uses the Flask test client and sets `NEPTUNE_SKIP_BUILD` to avoid heavy downloads/builds.
+## License
 
-Install `pytest` then run:
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-```powershell
-pip install pytest
-pytest -q
-```
+---
 
-## Files of interest
-
-- `app.py` — Flask entrypoint
-- `routes/api.py` — API endpoints; starts resource build unless skipped
-- `models/*` — small model wrappers and a training helper
-- `templates/*` — basic UI
-- `data/output.csv` — source dataset used to build embeddings and train toy models
-- `vectorstore/*` — FAISS index and embeddings (built on demand)
-
-## Notes & Troubleshooting
-
-- If TensorFlow install is problematic, consider using `tensorflow-cpu` or a compatible wheel for your Python version.
-- The repo includes `models/*.h5` as pre-saved examples; if they are missing, the app will train small models from `data/output.csv` (this may take several minutes).
-- FAISS and Sentence Transformers will download model weights the first time they run — ensure you have network access.
-
-If you'd like, I can:
-- Add a small CI config (GitHub Actions) to run the tests on push.
-- Add more tests around predictions.
-- Make the UI fancier.
-
+*Built with Flask, TensorFlow/Keras for neural networks, and FAISS for vector search.*
