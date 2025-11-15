@@ -135,9 +135,16 @@ We welcome contributions! Please follow these steps:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
+## 📞 Contact
 
-**Your Name** - [Your GitHub Profile](https://github.com/yourusername)
+**Your Name**  
+*Full-Stack Developer | AI/ML Engineer | Cybersecurity Enthusiast*
+
+- **Email**: athilkhan2005@gmail.com
+- **LinkedIn**: [Your LinkedIn](https://www.linkedin.com/in/ahamed-athil-khan/)
+- **GitHub**: [Your GitHub](https://github.com/iamathilkhan)
+
+Feel free to reach out for collaborations, questions, or opportunities!
 
 ## 🙏 Acknowledgments
 
