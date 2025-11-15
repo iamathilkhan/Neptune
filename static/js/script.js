@@ -1,20 +1,28 @@
 document.getElementById("send").onclick = async () => {
   const q = document.getElementById("query").value;
-  if (!q) return;
+  if (!q.trim()) return;
 
+  // Get context from input fields if they exist
   const context = {
-    tdrop: 28,
-    tbar: 1013,
-    tskinice: 25,
-    rainocn: 0.3,
-    delts: 0.5,
-    latitude: 15.0,
-    longitude: 75.0
+    tdrop: parseFloat(document.getElementById("tdrop")?.value || 28),
+    tbar: parseFloat(document.getElementById("tbar")?.value || 1013),
+    tskinice: parseFloat(document.getElementById("tskinice")?.value || 25),
+    rainocn: parseFloat(document.getElementById("rainocn")?.value || 0.3),
+    delts: parseFloat(document.getElementById("delts")?.value || 0.5),
+    latitude: parseFloat(document.getElementById("latitude")?.value || 15.0),
+    longitude: parseFloat(document.getElementById("longitude")?.value || 75.0)
   };
 
   const hist = document.getElementById("history");
-  hist.innerHTML += `<div class="user">You: ${q}</div>`;
+  
+  // Add user message
+  const userMsg = document.createElement("div");
+  userMsg.className = "user";
+  userMsg.textContent = "You: " + q;
+  hist.appendChild(userMsg);
+  
   document.getElementById("query").value = "";
+  hist.scrollTop = hist.scrollHeight;
 
   try {
     const res = await fetch("/api/chat", {
@@ -28,11 +36,29 @@ document.getElementById("send").onclick = async () => {
     }
 
     const data = await res.json();
-    hist.innerHTML += `<div class="bot">Neptune: ${data.response}</div>`;
+    
+    // Add bot response
+    const botMsg = document.createElement("div");
+    botMsg.className = "bot";
+    botMsg.textContent = data.response || "No response received";
+    hist.appendChild(botMsg);
+    
   } catch (error) {
     console.error("Error sending message:", error);
-    hist.innerHTML += `<div class="bot error">Neptune: Sorry, an error occurred. Please try again.</div>`;
+    
+    const errMsg = document.createElement("div");
+    errMsg.className = "bot error";
+    errMsg.textContent = "Neptune: Sorry, an error occurred. Please try again.";
+    hist.appendChild(errMsg);
   }
 
   hist.scrollTop = hist.scrollHeight;
 };
+
+// Allow Enter key to send message
+document.getElementById("query").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    document.getElementById("send").click();
+  }
+});
+
