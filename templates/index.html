@@ -23,25 +23,28 @@
         <h3>⚠️ Disaster Detection</h3>
         <p>Identify potential sea hazards and storms with our ML models.</p>
       </div>
-      <div class="card">
-        <h3>💬 Ocean Chat</h3>
-        <p>Ask questions about marine phenomena, conditions, and insights powered by AI.</p>
-      </div>
     </div>
-    
+
     <div class="cta-buttons">
-      <a href="/chat" class="button button-primary">Start Chat</a>
+      <a href="/predict" class="button button-primary">Make Prediction</a>
       <a href="/dashboard" class="button button-secondary">View Dashboard</a>
     </div>
     
+    {% if prediction %}
+    <div class="prediction-result">
+      <h3>Prediction Results</h3>
+      <p><strong>Fishing Probability:</strong> {{ "%.1f"|format(fish_pct) }}%</p>
+      <p><strong>Disaster Risk:</strong> {{ "%.1f"|format(dis_pct) }}%</p>
+      <p>Based on: Tdrop={{ "%.1f"|format(tdrop) }}, Tbar={{ "%.0f"|format(tbar) }}, Tskinice={{ "%.1f"|format(tskinice) }}, Rain={{ "%.1f"|format(rainocn) }}, Delts={{ "%.1f"|format(delts) }}, Lat={{ "%.1f"|format(latitude) }}, Lon={{ "%.1f"|format(longitude) }}</p>
+    </div>
+    {% endif %}
+
     <div class="info">
       <h3>About Neptune</h3>
-      <p>Neptune is a machine learning application that combines neural networks for prediction with semantic search for contextual understanding. It uses:</p>
+      <p>Neptune is a machine learning application that uses neural networks for ocean predictions. It uses:</p>
       <ul>
-        <li><strong>TensorFlow/Keras:</strong> Deep learning models for predictions</li>
-        <li><strong>FAISS:</strong> Efficient similarity search over 50,000+ ocean records</li>
-        <li><strong>Sentence Transformers:</strong> Semantic embeddings for context retrieval</li>
-        <li><strong>Hugging Face Transformers:</strong> Language model for natural responses</li>
+        <li><strong>TensorFlow/Keras:</strong> Deep learning models for fishing and disaster predictions</li>
+        <li><strong>Scikit-learn:</strong> Data preprocessing and scaling</li>
       </ul>
     </div>
   </div>
